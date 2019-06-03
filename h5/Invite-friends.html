@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商蜜送你一个大红包</title>
+
+  
+    <script>
+            (function (n) {
+                let w = document.documentElement.clientWidth || document.body.clientWidth; 
+                document.documentElement.style.fontSize = w/n*100 + 'px';
+            })(750)
+        </script>
+          <link rel="stylesheet" href="less/base.css">
+          <link rel="stylesheet" href="less/Invite-friends.css">
+          <link rel="stylesheet" href="less/register.css" >
+</head>
+<style>
+    /* 蒙层 */
+#popLayer{
+    display: none;
+    position: absolute;
+    left:0;
+    top:0;
+    height: 0;
+    width: 0;
+    z-index: 10;
+    background:#383131;
+    -moz-opacity: 0.8;
+    opacity:.80;
+    filter: alpha(opacity=80);/* 只支持IE6、7、8、9 */
+}
+</style>
+<body>
+    <section>
+        <div class="content"  >
+            <div class="hongbao"> 
+                  <div class='gotorule'>
+                      <div class="out"></div>
+                        <a href="rules.html">活动规则</a>
+                </div>
+                <div class="box">             
+              
+                <div class='Personal_image'>
+                    <!-- <img src="img/1.jpg" id=OImg  >      -->
+                    <div class='img' style='background-image:url("img/1.jpg") '></div>
+                      </div>
+                      <div class="hb_friend">
+                            <p id='my_friend'>
+                                  <span>  您的好友 
+                                    <span id='friend'>--</span> 邀请你使用商蜜</span>
+                                    <span style="display:inline-block">并送您一个新人红包</span>
+                            </p>  
+                      </div>
+                     <div class='money'>
+                         <span class='count'>0</span>
+                         <!-- <span class='cash'>可提现</span>
+                         <span class='yuan'>元</span> -->
+                         <img src="img/img_元（可提）@3x.png" style='width:1.4rem;height:1.2rem' alt="">
+                     </div> 
+                     <!-- 领取按钮 -->
+                     <div class='btn'>
+                            <button class='get_money' onclick="getMoney()">立即领取</button>
+                     </div>
+                     <div class="close" onclick="closeHb()"><img src="img/关闭@3x.png"/></div>
+                     <div id='popLayer' style='width: 100%; height: 100%;'></div>
+                     <div class='tankuang'  >
+                         <a href=""></a>
+                         <div class='register'>
+                            <div class='zc-head'>注册领红包</div>
+                            <div class='zc'>
+                                <div id="phone">
+                                    <span>手机号</span> <input id="tel" type="number" name="user" 
+                                    placeholder="请输入您的手机号" onkeyup='keyup_1(event,value)' onfocus="this.placeholder=''"
+                                    oninput="onInput_1(value)"
+                                    onblur="oBlur_1(value)"
+                                    onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"
+                                    style="ime-mode:disabled"
+                                    >
+                                 </div>
+                                 <div id="code">
+                                    <span>验证码</span> 
+                                    <input id="code-text" type="number" name="user" placeholder="请输入验证码" 
+                                    onfocus="this.placeholder=''"
+                                    oninput="onInput_2(value)"
+                                    onblur="oBlur_2(value)"
+                                    onkeyup='keyup_2(event,value)' 
+                                    onafterpaste="this.value=this.value.replace(/\D/g,'')"
+                                    >
+                                    <input id='yzm' style='color:#4C6AFF ;font-size:0.24rem; position:absolute;  width:1.5rem; right:0.8rem; height:.65rem;'  value=" 获取验证码"  onclick="settime(this);">  
+                                 
+                             
+                                 </div>                        
+                                 <div id="password">
+                                   <span>密&nbsp&nbsp&nbsp码</span>  <input id="password_use" type="password" name="password" placeholder="请设置6~12位的密码"
+                                   maxlength="12" 
+                                   onfocus="this.placeholder=''"
+                                   oninput="onInput_3(value)"
+                                   onblur="oBlur_3(value)"
+                                   onkeyup='keyup_3(event,value)' 
+                                  >
+                                 </div>
+                                 <span id='error-info'></span>
+                            </div>
+                        <button class='get-hb' style='background: #E6E6E6;color: #B3B3B3;' onclick='zc_getHb()'>领取红包
+                          </button>
+                        <div class='Tips'>点击领取红包，即表示您同意用户协议</div>
+                         </div>
+                     </div>
+                   <div>
+
+                   </div>
+                  <!--商蜜介绍及现金领取的方法  -->
+                    <div class='massage'>
+                            <span></span>
+                        <div class='ism_introduce' sty
+                        ext-align:center">
+                           <p style='font-size:0.3rem;color:#7E4915'>中国商人互动信息交友平台</p>
+                            <p class='ism_describe' >
+                                百万实名认证商人在这里
+                                
+                                <br>
+                                数万视频认证美人在这里
+                                <br>
+                                千万商机供需信息在这里</p>
+                            <p class="ism_Slogan" style="text-align:center">爱钞票，爱美人，爱商蜜APP</p>
+                        </div>
+                        <span class='spanTow'></span>
+                        <div class='get_way'>
+                           
+                            <ul>
+                                <li>1、被推荐人完成实名认证及职务认证，推荐人获得<e id='inviterAmount'>XX</e>元现金奖励,被推荐人获得<e id='inviteeAmount'>XX</e>元现金奖励
+                                
+                                  </li>
+                                    <li>    2、满足条件后现金发放在商蜜app账户余额中</li>
+                                    <li>
+                                        3、可在商蜜app余额中操作提现
+                                    </li>
+                                </ul>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>
+            <img src="https://www.ishangmi.cn/static/images/logostrokewhite.png" alt="">
+            <span>爱钞票｜爱美人｜爱商蜜</span>
+        </p>
+        <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.glhr.smdroid">下载APP</a>
+    </footer>
+</body>
+</html>
+<script src='./js/request.js'></script>
+<script src="./lib/axios.js"></script>
+<script src="./js/httpRequest.js"></script>
+<script src="js/index.js"></script>

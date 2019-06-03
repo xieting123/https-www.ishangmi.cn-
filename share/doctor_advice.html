@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable = no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商蜜</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+
+    <meta itemprop="description" name="description" content="商蜜互动交友" >
+    <meta itemprop="name" content="商蜜互动交友">
+    <meta itemprop="image" content="https://www.ishangmi.cn/static/images/logostrokewhite.png">
+
+    <script src="js/jquery.3.3.1.min.js"></script>
+    <script src="js/rem.js"></script>
+    <script src="js/request.js"></script>
+    <script src="js/vue.2.4.2.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/wecaht.share.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            font-size: 0.16rem;
+            font-family: "MicrosoftYaHei";
+        }
+
+        header {
+            width: 3.75rem;
+            height: 0.48rem;
+            background: #ea101f;
+            color: #ffffff;
+            font-size: 0.18rem;
+            text-align: center;
+            line-height: 0.48rem;
+            position: fixed;
+            top: 0
+        }
+
+        
+footer {
+width: 3.75rem;
+padding: 0 0.13rem;
+box-sizing: border-box;
+position: fixed;
+bottom: 0;
+z-index: 68;
+background: rgba(255, 255, 255, 1);
+box-shadow: 0px -1px 6px rgba(0, 0, 0, 0.16);
+height: 0.5rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+color: #ffffff;
+font-size: 0.14rem;
+}
+li{
+list-style: none;
+}
+footer img {
+width: 0.36rem;
+height: 0.36rem;
+margin-right: 0.1rem;
+}
+
+footer p {
+display: flex;
+align-items: center;
+font-size: 0.12rem;
+color: #4D4D4D;
+font-family: Segoe UI;
+}
+
+footer a {
+float: right;
+text-decoration: none;
+color: #ffffff;
+font-size: 0.14rem;
+background: rgba(215, 0, 15, 1);
+width: 0.7rem;
+height: 0.24rem;
+text-align: center;
+line-height: 0.24rem;
+/*margin-left: 1rem;*/
+border-radius: 37px;
+font-family: Segoe UI;
+}
+
+        #content {
+            width: 3.75rem;
+            position: absolute;
+            top: 0rem;
+            bottom: 0.5rem;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            background: #eeeeee;
+        }
+
+        nav {
+            width: 3.75rem;
+            display: flex;
+            padding: 0 0.13rem;
+            box-sizing: border-box;
+            flex-direction: column;
+            background: #ffffff;
+            border-bottom: 0.01rem #eeeeee solid
+        }
+
+        nav .nav-top {
+            height: 0.56rem;
+            display: flex;
+            align-items: center;
+            color: #787878
+        }
+
+        nav .img {
+            width: 0.36rem;
+            height: 0.36rem;
+            border-radius: 50%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+
+        }
+
+        nav .nav-middle {
+            /* font-size: 0.15rem; */
+            font-size: 0.16rem;
+        }
+
+        nav .nav-bottom {
+            display: flex;
+            justify-content: space-between;
+            color: #858585;
+            font-size: 0.12rem;
+            margin: 0.08rem 0;
+        }
+
+        nav .bottom-img {
+            display: flex;
+            align-items: center
+        }
+
+        .listInfo {
+            width: 3.75rem;
+            padding: 0 0.13rem;
+            box-sizing: border-box;
+            display: flex;
+            margin: 0 auto;
+            justify-content: space-between;
+            background: #ffffff;
+            color: #a4a4a4
+        }
+
+        .listInfo-text {
+            width: 3.1rem;
+            border-bottom: 0.01rem solid #eeeeee;
+            display: flex;
+            flex-direction: column;
+            word-wrap: break-word
+        }
+
+        .listInfo-text img {
+            width: 0.16rem;
+            height: 0.16rem;
+            margin: 0 0.06rem
+        }
+
+        .listInfo-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0.06rem 0
+        }
+
+        .zixun {
+            width: 0.62rem;
+            height: 0.25rem;
+            border: 1px solid #ea101f;
+            color: #ea101f;
+            text-align: center;
+            line-height: 0.26rem;
+            border-radius: 6px
+        }
+
+        #foot {
+            width: 3.75rem;
+            text-align: center;
+            padding: 0.14rem 0;
+            background: #ffffff
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--<header>
+            名医咨询详情
+        </header>-->
+        <div id="content">
+            <nav>
+                <div class="nav-top">
+                    <!-- <img :src="info.user.avatar" alt="" style="margin-right: 0.13rem"> -->
+                    <div class="img" :style="{backgroundImage:'url('+info.user.avatar+')'}"></div>
+                    <div id="text-top" style="margin-left: 0.04rem;">
+                        <span>{{info.user.name}}</span>
+                        <img v-if='info.user.verifyStatus===2' src="./images/share/icon_会员@3x.png" alt="图像" style='height: 0.14rem;width:0.14rem; vertical-align:middle;' >
+                        <div v-if="info.user.company||info.user.position" style="margin-top:0.02rem;font-size:0.12rem">{{info.user.company}}&#12288;{{info.user.position}}</div>
+                        <div v-else style="margin-bottom:0.06rem;font-size:0.12rem"></div>
+                    </div>
+                </div>
+                <div class="nav-middle">{{info.content}}</div>
+                <div class="nav-bottom">
+                    <span><!--{{time}}--></span>
+                    <div class="bottom-img">
+                        <img src="images/pinglun.png" alt="" style="width:0.18rem;height:0.15rem;margin-right: 0.06rem;border-radius:0;">
+                        <span v-if="info.answerCount <= 10">{{info.answerCount}}</span>
+                        <span v-else>10</span>
+                    </div>
+                </div>
+            </nav>
+            <div class="listInfo" v-for="(item, index) in listInfo" :key="index">
+                <img :src="item.user.avatar" alt="" style="width:0.3rem;height:0.3rem;border-radius:50%;margin-top: 0.04rem">
+                <div class="listInfo-text">
+                    <p style="margin:0.06rem 0 solid #222222">{{item.user.nickname}}</p>
+
+                    <div v-if="item.user.companyPositionList.length>0" style="margin-bottom:0.06rem;font-size:0.12rem">{{item.user.companyPositionList[0].company}}&#12288;{{item.user.companyPositionList[0].position}}</div>
+                    <div v-else style="margin-bottom:0.06rem;font-size:0.12rem"></div>
+
+                    <div style="solid #222222"> {{item.answerContent}}</div>
+                    <div class="listInfo-bottom">
+                        <p>
+                            <span style="font-size:0.12rem">{{item.time}}</span>
+                            <img src="images/icon_zan.png" alt="">
+                            <span>{{item.likeCount}}</span>
+                            <img src="images//icon_sang.png" alt="">
+                            <span>{{item.rewardCount}}</span>
+                        </p>
+                        <p class="zixun">咨询TA</p>
+                    </div>
+                </div>
+            </div>
+            <div id="foot">
+                没有更多数据
+            </div>
+        </div>
+        <footer>
+                <p>
+                    <img src="https://www.ishangmi.cn/static/images/logostrokewhite.png" alt="">
+                    <span>爱钞票｜爱美人｜爱商蜜</span>
+                </p>
+                <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.glhr.smdroid">下载APP</a>
+            </footer>
+
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                info: {user:{companyPositionList:[]}},
+                time: '',
+                listInfo: '',
+                title: '',
+                desc: '',
+                imgUrl: null
+            },
+            created() {
+                axios.get('https://api.ishangmi.cn/advice/detail?consultationId=' + getUrlParam('id')).then(response => {
+                    this.info = response.data.result;
+                    console.log(this.info);
+                    
+                    this.time = this.dateDiff(this.info.createTime)
+                    this.title = this.info.content;
+                    this.desc = this.info.content;
+                    this.imgUrl = this.info.user.avatar;
+                    this.share();
+                })
+                axios.get('https://api.ishangmi.cn/advice/common/list?consultationId=' + getUrlParam('id'))
+                    .then(response => {
+                        this.listInfo = response.data.result.list.slice(0, 10)
+                        for (var i of this.listInfo) {
+                            this.$set(i, 'time', this.dateDiff(i.createTime))
+                        }
+
+                    })
+            },
+            methods: {
+                share: function () {
+                    wechatShare({
+                        title: this.title,
+                        desc: this.desc,
+                        link: this.link,
+                        imgUrl: this.imgUrl
+                    });
+                },
+                dateDiff: function (timestamp) {
+                    var arrTimestamp = (timestamp + '').split('');
+                    for (var start = 0; start < 13; start++) {
+                        if (!arrTimestamp[start]) {
+                            arrTimestamp[start] = '0';
+                        }
+                    }
+                    timestamp = arrTimestamp.join('') * 1;
+                    var minute = 1000 * 60;
+                    var hour = minute * 60;
+                    var day = hour * 24;
+                    var halfamonth = day * 15;
+                    var month = day * 30;
+                    var now = new Date().getTime();
+                    var diffValue = now - timestamp;
+                    if (diffValue < 0) {
+                        return '不久前';
+                    }
+                    var monthC = diffValue / month;
+                    var weekC = diffValue / (7 * day);
+                    var dayC = diffValue / day;
+                    var hourC = diffValue / hour;
+                    var minC = diffValue / minute;
+                    var zero = function (value) {
+                        if (value < 10) {
+                            return '0' + value;
+                        }
+                        return value;
+                    };
+                    if (monthC > 12) {
+                        return (function () {
+                            var date = new Date(timestamp);
+                            return date.getFullYear() + '年' + zero(date.getMonth() + 1) + '月' +
+                                zero(date.getDate()) + '日';
+                        })();
+                    } else if (monthC >= 1) {
+                        return parseInt(monthC) + "月前";
+                    } else if (weekC >= 1) {
+                        return parseInt(weekC) + "周前";
+                    } else if (dayC >= 1) {
+                        return parseInt(dayC) + "天前";
+                    } else if (hourC >= 1) {
+                        return parseInt(hourC) + "小时前";
+                    } else if (minC >= 1) {
+                        return parseInt(minC) + "分钟前";
+                    }
+                    return '刚刚';
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

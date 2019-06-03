@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商蜜</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css">
+    <meta itemprop="description" name="description" content="商蜜互动交友">
+    <meta itemprop="name" content="商蜜互动交友">
+    <meta itemprop="image" content="https://www.ishangmi.cn/static/images/logostrokewhite.png">
+
+    <script src="js/jquery.3.3.1.min.js"></script>
+    <script src="js/rem.js"></script>
+    <script src="js/request.js"></script>
+    <script src="js/vue.2.4.2.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.js"></script>
+    <script src="js/jquery.3.3.1.min.js"></script>
+    <script src="js/wecaht.share.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            font-size: 0.14rem;
+            font-family: "MicrosoftYaHei";
+        }
+
+        header {
+            width: 3.75rem;
+            height: 1.74rem;
+            /* background: url(images/img_my_bj.png); */
+            background-size: contain
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 3.25rem;
+            position: relative;
+        }
+        .bussiness-container{
+            height: 2rem;
+            text-align: center;
+            margin-bottom:0.6rem;
+        }
+        .bussiness-container .top{
+            height: 0.94rem;
+            width: 100%;
+            background: #D7000F;
+        }
+        .bussiness-container .job{
+            font-weight:400;
+            font-size: 0.14rem;
+            line-height: 0.28rem;
+        }
+        .bussiness-container .Jobinfo{
+            font-size: 0.12rem;
+            font-weight:400;
+            color:#666666;
+            line-height: 0.18rem;
+        }
+        .bottom .avatar{
+            width: 0.9rem;
+            height:0.9rem;
+            border-radius: 50%;
+            background-repeat: no-repeat;
+background-position: center center;
+background-size: cover;
+display:inline-block;
+margin-top:-0.5rem;
+            border:0.02rem solid rgba(255,255,255,1);
+        }
+        /* .bottom img{
+            width: 0.95rem;
+            height:0.95rem;
+            border-radius: 50%;
+            
+        } */
+        .bottom .vip{
+            width: 0.24rem;
+            height: 0.24rem;
+            margin-left:-0.3rem;
+        }
+        .bottom .sex{
+            width: 0.16rem;
+            height: 0.16rem;
+            line-height: 0.16rem;
+            border-radius: 0;
+            margin-left:0.12rem;
+            display:inline-block;
+            border:none;
+        }
+        .bottom .identityName{
+            height:0.16rem;
+            display: inline-block;
+            margin-left:0.05rem;
+            padding: 0 0.05rem;
+            line-height: 0.16rem;
+            background: #E6A15C;
+            font-size: 0.1rem;
+            color: #fff;
+            border-radius: 4px;
+            text-align: center;
+            display:inline-block;
+        }
+        .bottom .name{
+            font-size: 0.22rem;
+            font-weight:800;
+            
+        }
+        .bottom .boxInfo{
+   display: flex;
+    align-items: center;
+    justify-content:center;
+        }
+
+        .swiper-slide {
+            /* background-attachment:fixed; */
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+
+        }
+
+        .swiperPagination {
+            position: absolute;
+            right: 0.3rem;
+            bottom: 0.14rem;
+            background: rgba(0, 0, 0, 0.6);
+            display: inline-block;
+            width: 0.45rem;
+            height: 0.2rem;
+            line-height: 0.2rem;
+            font-family: PingFang SC;
+            opacity: 1;
+            border-radius: 4px;
+            text-align: center;
+            color: #FFFFFF;
+            font-size: 0.1rem;
+        }
+
+        nav {
+            width: 100%;
+            height: 0.8rem;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            font-size: 0.12rem;
+        }
+        nav .avatarOimg{
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            margin-left: 0.2rem;
+            margin-right: 0.1rem;
+            border-bottom: 1px solid #ccc;  
+            background-repeat: no-repeat;
+background-position: center center;
+background-size: cover;
+display:inline-block;
+        }
+        /* nav img {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            margin-left: 0.2rem;
+            margin-right: 0.1rem;
+            border-bottom: 1px solid #ccc;
+        } */
+
+        nav .nickname {
+            font-weight: 800;
+            color: #333333;
+            position: relative;
+        }
+
+        nav .info {
+            font-size: 0.12rem;
+            color: #666666;
+            margin-top:0.01rem;
+        }
+
+        nav .sex {
+            width: 0.16rem;
+            height: 0.16rem;
+            border-radius: 0;
+            margin-left:0.08rem;
+            vertical-align: middle;
+            margin-right:0;
+        }
+
+        nav .identityName {
+            display: inline-block;
+            /* width: 0.28rem; */
+            height: 0.12rem;
+            line-height: 0.14rem;
+            background: #E6A15C;
+            font-size: 0.1rem;
+            color: #fff;
+            border-radius: 4px;
+            text-align: center;
+            padding: 0.02rem 0.04rem;
+            vertical-align: middle;
+
+        }
+
+        .p {
+            color: #eb1b23;
+            width: 0.3rem;
+            height: 0.18rem;
+            background: #f6e573;
+            text-align: center;
+            line-height: 0.18rem;
+            border-radius: 0.06rem;
+        }
+
+        #text {
+            text-align: left;
+            word-wrap: break-word;
+            font-weight: 400;
+            color: #4D4D4D;
+            line-height: 0.22rem;
+            font-size: 0.14rem;
+            margin-top: 0.07rem;
+        }
+
+        #toDown {
+            height: 0.85rem;
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 0.1rem;
+            text-align: center;
+            padding-top: 0.085rem;
+            font-size: 0.12rem;
+            font-weight: 600;
+            color: #666666;
+            background-image: url('./images/share/联系模块模糊背景图.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+
+        }
+
+        .clicks {
+            background: linear-gradient(90deg, rgba(255, 102, 102, 1) 0%, rgba(247, 49, 49, 1) 100%);
+            width: 1.1rem;
+            height: 0.25rem;
+            border-radius: 37px;
+            display: inline-block;
+            line-height: 0.25rem;
+            margin-top: 0.1rem;
+
+
+        }
+
+        .clicks a {
+            text-decoration: none;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+
+        #content {
+            width: 3.75rem;
+            margin-top: 0.2rem;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        footer {
+            width: 3.75rem;
+            padding: 0 0.13rem;
+            box-sizing: border-box;
+            position: fixed;
+            bottom: 0;
+            z-index: 68;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0px -1px 6px rgba(0, 0, 0, 0.16);
+            height: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #ffffff;
+            font-size: 0.14rem;
+        }
+        li{
+            list-style: none;
+        }
+        footer img {
+            width: 0.36rem;
+            height: 0.36rem;
+            margin-right: 0.1rem;
+        }
+
+        footer p {
+            display: flex;
+            align-items: center;
+            font-size: 0.12rem;
+            color: #4D4D4D;
+            font-family: Segoe UI;
+        }
+
+        footer a {
+            float: right;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 0.14rem;
+            background: rgba(215, 0, 15, 1);
+            width: 0.7rem;
+            height: 0.24rem;
+            text-align: center;
+            line-height: 0.24rem;
+            /*margin-left: 1rem;*/
+            border-radius: 37px;
+            font-family: Segoe UI;
+        }
+
+        .list-info {
+            width: 3.49rem;
+            height: 0.5rem;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 0.01rem solid #ececec;
+            box-sizing: border-box
+        }
+
+        .list-info img {
+            width: 0.1rem;
+            height: 0.18rem;
+            margin-left: 0.12rem
+        }
+
+        .list-info p {
+            display: flex;
+            align-items: center;
+            color: #707070;
+            font-size: 0.12rem;
+        }
+
+        .space-box {
+            width: 90%;
+            height: 0.005rem;
+            background: #E6E6E6;
+            margin: 0 auto;
+        }
+
+        .space-box2 {
+            width: 100%;
+            height: 0.05rem;
+            background: #F5F5F5;
+        }
+
+        .show-list {
+            width: 3.49rem;
+            margin: 0.16rem;
+            margin-top: 0.25rem;
+        }
+
+        .show-introduce {
+            /* height: 0.5rem; */
+        }
+        .company{
+            font-size:0.14rem;
+font-family:PingFang SC;
+font-weight:700;
+line-height:0.22rem;
+        }
+        .timePosition{
+            font-weight:400;
+        }
+
+        .small-img {
+            width: 0.03rem;
+            height: 0.16rem;
+            margin-right: 0.1rem;
+        }
+
+        .show-top {
+            display: flex;
+            height: 0.24rem;
+            /* line-height: 0.17rem; */
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 800;
+            font-size: 0.17rem;
+        }
+
+        .show-bottom {
+            /*height: 0.3rem;*/
+            color: #707070;
+            font-size: 0.12rem;
+            line-height: 0.3rem;
+            display: flex;
+            justify-content: space-between
+        }
+
+        .top-left {
+            display: flex;
+            align-items: center;
+            font-size: 0.17rem;
+            color: #333333;
+        }
+
+        .you-img {
+            width: 0.1rem;
+            height: 0.18rem;
+            margin-left: 0.12rem
+        }
+
+        .weird {
+            /*height: 0.8rem;*/
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .top-right {
+            color: #707070;
+            display: flex;
+            align-items: center
+        }
+
+        .star-item {
+            display: inline-block;
+            width: 0.18rem;
+            height: 0.18rem;
+            background-size: contain;
+            margin-left: 0.04rem;
+        }
+
+        .star-item.on {
+            background-image: url('images/on-star.png');
+        }
+
+        .star-item.half {
+            background-image: url('images/half-star.png');
+        }
+
+        .star-item.off {
+            background-image: url('images/off-star.png');
+        }
+
+        .star-lists {
+            display: flex;
+        }
+
+        .star-left {
+            display: flex;
+            flex-direction: column;
+            width: 1.4rem;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .star-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between
+        }
+
+        .star-rightText {
+            display: flex;
+        }
+
+        .score {
+            color: #ea101f
+        }
+
+        #img-box {
+            /*display: flex;*/
+            /*margin-bottom: 0.08rem*/
+        }
+
+        #img-box img {
+            width: 0.75rem;
+            height: 0.75rem;
+            margin-right: 0.05rem;
+        }
+
+        #img-box img:last-child {
+            /*padding: 0.2rem 0;*/
+        }
+
+        .weird-left-album {
+            width: 3.49rem;
+            padding: 0.05rem;
+            margin: 0 auto;
+            /*display: flex;*/
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 0.01rem solid #ececec;
+            box-sizing: border-box
+        }
+
+        .weird-left-not-skill {
+            height: 0.89rem;
+        }
+
+        t .weird-right img {
+            width: 0.1rem;
+            height: 0.18rem;
+            margin-left: 0.12rem
+        }
+    </style>
+
+    <style>
+        /*----------------------------
+            Thumbnails
+        -----------------------------*/
+
+        .img-gather a {
+            float: left;
+            width: 0.75rem;
+            height: 0.75rem;
+            margin: 0.02rem 0.04rem 0 0;
+        }
+
+        .thumbs {
+            text-align: center;
+        }
+
+        .thumbs a {
+            border-radius: 4px;
+            margin-bottom: 5px;
+            background-position: center center;
+            background-repeat: no-repeat;
+
+            background-size: cover;
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+        }
+
+        /*----------------------------
+            Media Queries
+        -----------------------------*/
+        @media screen and (max-width: 960px) {
+            .thumbs {
+                width: auto;
+            }
+
+            #bsaHolder {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <div class='bussiness-container'  v-if='userInfo.userIdentity.identityId===4'>
+                <div class='top'></div>
+                <div class='bottom'>
+                        <div class='avatar'
+                        :style="{backgroundImage:'url(' + userInfo.avatar + ')'}"></div>
+                        <!-- <img  :src="userInfo.avatar" alt=""> -->
+                        <img class='vip' v-if='userInfo.verifyStatus===2' src="./images/share/icon_会员@3x.png" alt=""> 
+                        <br>
+                        <div class='boxInfo'>
+                            <span class='name' >{{userInfo.name}}
+                            </span>  
+                            <img v-if='userInfo.sex===1' class='sex' src="./images//share/icon_男性@3x.png" alt="">
+                                <img v-else class='sex' src="./images//share/icon_女性@3x.png" alt="">
+                            <span class='identityName'>
+                                {{userInfo.userIdentity.identityName}}
+                            </span>
+                        </div>
+                      
+                            <div class='job'v-if='userInfo.workList.length===0'>未填写</div>
+                            <div class='job' v-else>
+                                 {{userInfo.company}} . {{userInfo.position}}
+                                </div>
+                                <p class='Jobinfo'>{{userInfo.provinceName}}{{userInfo.cityName}} |
+                                        ID:{{userInfo.id}}</p>     
+                </div>
+            </div>
+            <!-- 轮播图 -->
+            <div v-else class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div v-for="(item,index) in userInfo.albums" class="swiper-slide" ::key="index"
+                        :style="{backgroundImage:'url(' + item.imgUrl + ')'}">
+                        <span class='swiperPagination'> {{index+1}}/{{userInfo.albums.length}}</span>
+                    </div>
+
+                </div>
+            </div>
+            <nav v-if='userInfo.userIdentity.identityId!==4'>
+                    <div class='avatarOimg'
+                    :style="{backgroundImage:'url(' + userInfo.avatar + ')'}"></div>
+                <!-- <img :src="userInfo.avatar" alt=""> -->
+                <div>
+                    <span class='nickname' style="font-size:0.18rem" v-if='userInfo.userIdentity.identityId===4||userInfo.userIdentity.identityId===3||userInfo.userIdentity.identityId===6'>{{userInfo.name}}<img v-if='userInfo.sex===1' class='sex' src="./images//share/icon_男性@3x.png" alt="">
+                        <img v-else class='sex' src="./images//share/icon_女性@3x.png" alt="">
+                        <span class='identityName'>
+                            {{userInfo.userIdentity.identityName}}
+                        </span></span>
+                        <span class='nickname' style="font-size:0.18rem" v-else>{{userInfo.nickname}}<img v-if='userInfo.sex===1' class='sex' src="./images//share/icon_男性@3x.png" alt="">
+                            <img v-else class='sex' src="./images//share/icon_女性@3x.png" alt="">
+                            <span class='identityName'>
+                                {{userInfo.userIdentity.identityName}}
+                            </span></span>
+                    <p class='info'>{{userInfo.birthday == '' ? '' :userInfo.age+"岁 | "}}{{userInfo.provinceName}}{{userInfo.cityName}} |
+                        ID:{{userInfo.id}}</p>
+                </div>
+               
+            </nav>
+            <div v-if='userInfo.userIdentity.identityId!==4' class="space-box"></div>
+            <div id="content">
+                <div
+                    style="color:#333333;line-height:0.17rem;;font-size:0.17rem;font-weight:800;margin-left:0.16rem;margin-right:0.16rem">
+                    个人简介
+                    <div id="text">{{userInfo.aboutme?userInfo.aboutme:'未填写'}}</div>
+                </div>
+                <div
+                    style="color:#333333;line-height:0.17rem;;font-size:0.17rem;font-weight:800;margin-left:0.16rem;margin-right:0.16rem;margin-top:0.25rem">
+                    联系信息
+                    <div id="toDown">微信、手机号、邮箱、QQ等联系方式仅在app中可查看
+                        <div class="clicks">
+                            <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.glhr.smdroid">APP查看</a> </div>
+                    </div>
+
+                </div>
+             
+                <template>
+
+
+                    <div class="show-list" v-if='userInfo.userIdentity.identityType===1'>
+                        <div class="show-top">
+                            <div class="top-left">
+                                <span>服务方式及报价</span>
+                            </div>
+                        </div>
+                        <div class="show-bottom">
+                            <div id="text">线下服务
+                                {{userInfo.userIdentity.servicePrice===-1?"未填写":userInfo.userIdentity.servicePrice}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="show-list" v-if='userInfo.userIdentity.identityType===1'>
+                        <div class="show-top">
+                            <div class="top-left">
+                                <span>服务内容</span>
+                            </div>
+                        </div>
+                        <div class="show-introduce">
+                            <div id="text">
+                                {{userInfo.userIdentity.introduce===""?"未填写":userInfo.userIdentity.introduce}}</div>
+                        </div>
+                    </div>
+                    <div class="show-list" v-if='userInfo.userIdentity.identityType===1'>
+                        <div class="show-top">
+                            <div class="top-left">
+                                <span>语音介绍</span>
+                            </div>
+                        </div>
+                        <div class='show-introduce' v-if='userInfo.userIdentity.serviceAudio===""'>
+                            <p>无</p>
+                        </div>
+                        <div class='show-introduce' v-else>
+                            <audio ref='audio' controls :src="userInfo.userIdentity.serviceAudio">
+                            </audio>
+                        </div>
+
+                    </div>
+                    <div class="show-list">
+                        <div class="show-top">
+                            <div class="top-left">
+                                <span>任职信息与工作经历</span>
+                            </div>
+                        </div>
+                        <div class="show-introduce">
+                            <div id="text" v-if='userInfo.workList.length===0'>未填写</div>
+                            <div id="text" v-else>
+                                <ul>
+                                    <li v-for='item in userInfo.workList' :key='item.id' style='margin-top:0.1rem'>
+                                        <p class='company'>{{item.company}}</p>
+                                        <span
+                                            class='timePosition'>{{item.entryTime.replace(/-/g,'.')}}-{{item.departureTime.replace(/-/g,'.')}}，{{item.position}}</span>
+                                        <p>{{item.desc}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="show-list" style='margin-bottom:1rem'>
+                        <div class="show-top">
+                            <div class="top-left">
+                                <span>教育经历</span>
+                            </div>
+                        </div>
+                        <div  class="show-introduce">
+                            <div id="text" v-if='userInfo.educationList.length===0'>
+                               未填写
+                            </div>
+                            <div id="text" v-else>
+                                    <ul>
+                                        <li v-for='item in userInfo.educationList' :key='item.id'>
+                                            <p class='company'>{{item.school}}</p>
+                                            <span
+                                                class='timePosition'>{{item.admissionTime.replace(/-/g,'.')}}-{{item.graduationTime.replace(/-/g,'.')}}，{{item.major}}{{item.education}}</span>
+                                            <p>{{item.desc}}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="show-list">
+                <!-- <div class="show-top">
+                    <div class="top-left">
+                        <img src="images/shu.png" alt="" class="small-img">
+                        <span>评价</span>
+                    </div>
+                    <div class="top-right">
+                        <span>查看评价</span>
+                        <img src="images/youfang.png" alt="" class="you-img">
+                    </div>
+                </div> -->
+                <!-- <div class="star-lists">
+                        <div class="star-left">
+                            <span>综合</span>
+                            <span class="score">{{grade.comprehensiveEvaluation}}</span>
+                            <div class="star-list">
+                                <p v-for="(itemClass,index) in itemClasses" :class="itemClass" class="star-item" :key="index"></p>
+                            </div>
+                        </div>
+                        <img src="images/bigshu.png" alt="" style="height: 0.62rem;margin-left: 0.1rem;margin-right: 0.08rem">
+                        <div class="star-right">
+                            <div class="star-rightText">
+                                <span>准确</span>
+                                <div class="star-list">
+                                    <p v-for="(itemClassesOne,index) in itemClassesOne" :class="itemClassesOne" class="star-item"
+                                        :key="index"></p>
+                                </div>
+                                <span style="margin-left:0.14rem;" class="score">{{grade.accuracyAvg}}</span>
+                            </div>
+                            <div class="star-rightText">
+                                <span>技能</span>
+                                <div class="star-list">
+                                    <p v-for="(itemClassesTwo,index) in itemClassesTwo" :class="itemClassesTwo" class="star-item"
+                                        :key="index"></p>
+                                </div>
+                                <span style="margin-left:0.14rem;" class="score">{{grade.skillAvg}}</span>
+                            </div>
+                            <div class="star-rightText">
+                                <span>态度</span>
+                                <div class="star-list">
+                                    <p v-for="(itemClassesThree,index) in itemClassesThree" :class="itemClassesThree"
+                                        class="star-item" :key="index"></p>
+                                </div>
+                                <span style="margin-left:0.14rem;" class="score">{{grade.attitudeAvg}}</span>
+                            </div>
+                        </div>
+                    </div> -->
+            </div>
+            <div class="space-box"></div>
+
+            <!-- <template
+                v-if="userInfo.userIdentity.identityId != 1 && userInfo.userIdentity.identityId != 2 && userInfo.userIdentity.identityId != 5 ">
+                <div class="show-list">
+                    <div class="show-top">
+                        <div class="top-left">
+                            <img src="images/shu.png" alt="" class="small-img">
+                            <span>TA的解答</span>
+                        </div>
+                    </div>
+                    <div class="show-bottom">
+                        <span>看看TA的解答，更深入的了解TA</span>
+                        <img src="images/youfang.png" alt="" class="you-img">
+                    </div>
+                </div>
+                <div class="space-box"></div>
+                <div class="show-list">
+                    <div class="show-top">
+                        <div class="top-left">
+                            <img src="images/shu.png" alt="" class="small-img">
+                            <span v-if="userInfo.userIdentity.identityId == 3">TA的说法</span>
+                            <span v-else-if="userInfo.userIdentity.identityId == 6">TA的文章</span>
+                            <span v-else>TA的场</span>
+                        </div>
+                    </div>
+                    <div class="show-bottom">
+                        <span>看看TA发布了哪些专业问题</span>
+                        <img src="images/youfang.png" alt="" class="you-img">
+                    </div>
+                </div>
+            </template> -->
+            </template>
+    </div>
+    <footer>
+        <p>
+            <img src="https://www.ishangmi.cn/static/images/logostrokewhite.png" alt="">
+            <span>爱钞票｜爱美人｜爱商蜜</span>
+        </p>
+        <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.glhr.smdroid">下载APP</a>
+    </footer>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            userInfo: '',
+            sliderIndex: '',
+            grade: {},
+            identityName: '',
+            score: '',
+            scoreOne: '',
+            scoreTwo: '',
+            scoreThree: '',
+            title: '',
+            desc: '',
+            imgUrl: null
+        },
+        created() {
+            axios.get('https://api.ishangmi.cn/user/accounts/profile?userId=' + getUrlParam('id')).then(
+                    response => {
+                        this.userInfo = response.data.result;
+                        this.grade = this.userInfo.userIdentity.grade;
+                        this.identityName = this.userInfo.userIdentity.identityName
+                        if (this.grade.comprehensiveEvaluation === -1) {
+                            this.grade.comprehensiveEvaluationOpe = 0;
+                            this.grade.comprehensiveEvaluation = '-'
+                        } else {
+                            this.grade.comprehensiveEvaluationOpe = this.grade.comprehensiveEvaluation;
+                            this.grade.comprehensiveEvaluation += '分';
+                        }
+                        if (this.grade.accuracyAvg === -1) {
+                            this.grade.accuracyAvgOpe = 0;
+                            this.grade.accuracyAvg = '-'
+                        } else {
+                            this.grade.accuracyAvgOpe = this.grade.accuracyAvg;
+                            this.grade.accuracyAvg += '分';
+                        }
+                        if (this.grade.skillAvg === -1) {
+                            this.grade.skillAvgOpe = 0;
+                            this.grade.skillAvg = '-'
+                        } else {
+                            this.grade.skillAvgOpe = this.grade.skillAvg;
+                            this.grade.skillAvg += '分';
+                        }
+                        if (this.grade.attitudeAvg === -1) {
+                            this.grade.attitudeAvgOpe = 0;
+                            this.grade.attitudeAvg = '-'
+                        } else {
+                            this.grade.attitudeAvgOpe = this.grade.attitudeAvg;
+                            this.grade.attitudeAvg += '分';
+                        }
+                        if(this.userInfo.name){
+                            this.title = this.userInfo.name + "的主页";
+                        }else{
+                            this.title = this.userInfo.nickname + "的主页"; 
+                        }
+                        
+                        this.desc = this.userInfo.aboutme;
+                        this.imgUrl = this.userInfo.avatar;
+                        this.share();
+                    }),
+                this.initSwiper()
+        },
+        methods: {
+            initSwiper() {
+                var mySwiper = new Swiper('.swiper-container', {
+                        direction: 'horizontal', // 水平切换选项
+                        loop: true, // 循环模式选项
+
+                        // 如果需要分页器
+                        // pagination: {
+                        //     el: '.swiper-pagination',
+                        // },
+
+                    },
+
+                )
+            },
+            share: function () {
+                wechatShare({
+                    title: this.title,
+                    desc: this.desc,
+                    link: this.link,
+                    imgUrl: this.imgUrl
+                });
+            }
+        },
+        computed: {
+            itemClasses() {
+                let result = [];
+                this.score = this.grade.attitudeAvgOpe;
+                let score = Math.floor(this.score * 2) / 2;
+                let hasDecimal = score % 1 !== 0;
+                let integer = Math.floor(score);
+                for (let i = 0; i < integer; i++) {
+                    result.push('on')
+                }
+                if (hasDecimal) {
+                    result.push('half')
+                }
+                while (result.length < 5) {
+                    result.push('off')
+                }
+                return result
+            },
+            itemClassesOne() {
+                let result = [];
+                this.scoreOne = this.grade.accuracyAvgOpe;
+                let score = Math.floor(this.scoreOne * 2) / 2;
+                let hasDecimal = score % 1 !== 0;
+                let integer = Math.floor(score);
+                for (let i = 0; i < integer; i++) {
+                    result.push('on')
+                }
+                if (hasDecimal) {
+                    result.push('half')
+                }
+                while (result.length < 5) {
+                    result.push('off')
+                }
+                return result
+            },
+            itemClassesTwo() {
+                let result = [];
+                this.scoreTwo = this.grade.skillAvgOpe;
+                let score = Math.floor(this.scoreTwo * 2) / 2;
+                let hasDecimal = score % 1 !== 0;
+                let integer = Math.floor(score);
+                for (let i = 0; i < integer; i++) {
+                    result.push('on')
+                }
+                if (hasDecimal) {
+                    result.push('half')
+                }
+                while (result.length < 5) {
+                    result.push('off')
+                }
+                return result
+            },
+            itemClassesThree() {
+                let result = [];
+                this.scoreThree = this.grade.attitudeAvgOpe;
+                let score = Math.floor(this.scoreThree * 2) / 2;
+                let hasDecimal = score % 1 !== 0;
+                let integer = Math.floor(score);
+                for (let i = 0; i < integer; i++) {
+                    result.push('on')
+                }
+                if (hasDecimal) {
+                    result.push('half')
+                }
+                while (result.length < 5) {
+                    result.push('off')
+                }
+                return result
+            }
+        },
+        updated() {
+            this.$nextTick(function () {
+                this.initSwiper()
+            })
+        },
+    })
+</script>
+
+</html>

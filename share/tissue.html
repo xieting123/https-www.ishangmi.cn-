@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable =no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商蜜</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+
+    <meta itemprop="description" name="description" content="商蜜互动交友" >
+    <meta itemprop="name" content="商蜜互动交友">
+    <meta itemprop="image" content="https://www.ishangmi.cn/static/images/logostrokewhite.png">
+
+    <script src="js/jquery.3.3.1.min.js"></script>
+    <script src="js/rem.js"></script>
+    <script src="js/request.js"></script>
+    <script src="js/vue.2.4.2.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/jquery.3.3.1.min.js"></script>
+    <script src="js/wecaht.share.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            font-size: 0.16rem;
+            font-family: "MicrosoftYaHei";
+        }
+
+        header {
+            width: 3.75rem;
+            height: 0.48rem;
+            background: #ea101f;
+            color: #ffffff;
+            font-size: 0.18rem;
+            text-align: center;
+            line-height: 0.48rem;
+        }
+
+        nav {
+            width: 3.75rem;
+            height: 2.02rem;
+            background-image: url('images/bj.png');
+            /* background-size: contain; */
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #nav-flex {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.06rem
+        }
+
+        /*#nav-flex img {
+            width: 0.16rem;
+            height: 0.16rem;
+            margin: 0 0.06rem
+        }*/
+/*
+
+        #nav-flex .box {
+            width: 0.68rem;
+            height: 0.26rem;
+            background: #f6e573;
+            text-align: center;
+            line-height: 0.26rem;
+            border-radius: 8px;
+            color: #ea101f
+        }
+*/
+        #nav-flex2 {
+            font-size: 0.12rem;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.06rem
+        }
+
+        #nav-flex2 img {
+            width: 0.16rem;
+            height: 0.16rem;
+            margin: 0 0.06rem
+        }
+
+        #opacity {
+            color: #ffffff;
+            font-size: 0.14rem;
+            width: 3.4rem;
+            /*height: 0.533rem;*/
+            height: 0.338rem;
+            background: #000000;
+            opacity: 0.4;
+            border-radius: 10px;
+            /*text-indent: 0.12rem;*/
+            line-height: 0.2rem;
+            padding: 0.1rem ;
+            /*overflow: -webkit-paged-y;*/
+            overflow: scroll;
+        }
+
+        #content {
+            width: 3.75rem;
+            position: absolute;
+            top: 2.1rem;
+            bottom: 0.5rem;
+            background: #f0f2f5;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch
+        }
+
+        .list {
+            width: 3.75rem;
+            height: 0.62rem;
+            border-bottom: 0.01rem solid #eee;
+            display: flex;
+            align-items: center;
+            background: #ffffff
+
+        }
+
+        .list img {
+            width: 0.4rem;
+            height: 0.4rem;
+            border-radius: 50%
+        }
+
+        footer {
+            width: 3.75rem;
+            padding: 0 0.13rem;
+            box-sizing: border-box;
+            position: fixed;
+            bottom: 0;
+            z-index: 68;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0px -1px 6px rgba(0, 0, 0, 0.16);
+            height: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #ffffff;
+            font-size: 0.14rem;
+        }
+        li{
+            list-style: none;
+        }
+        footer img {
+            width: 0.36rem;
+            height: 0.36rem;
+            margin-right: 0.1rem;
+        }
+
+        footer p {
+            display: flex;
+            align-items: center;
+            font-size: 0.12rem;
+            color: #4D4D4D;
+            font-family: Segoe UI;
+        }
+
+        footer a {
+            float: right;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 0.14rem;
+            background: rgba(215, 0, 15, 1);
+            width: 0.7rem;
+            height: 0.24rem;
+            text-align: center;
+            line-height: 0.24rem;
+            /*margin-left: 1rem;*/
+            border-radius: 37px;
+            font-family: Segoe UI;
+        }
+
+        .img-box {
+            width: 0.62rem;
+            height: 0.62rem;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <!--<header>商会</header>-->
+    <nav>
+        <img :src="navInfo.tissueCoverPhoto" alt="" style="width:0.61rem;height:0.61rem;margin:0.06rem 0">
+        <span style="color:#6d6a6a;margin-bottom: 0.06rem">{{navInfo.tissueName}}</span>
+        <div id="nav-flex"><span class="box">{{navInfo.tradeName}}</span></div>
+        <div id="nav-flex2"><img src="images/ren.png" alt=""><span>共{{navInfo.personCount}}人</span>
+        </div>
+        <div id="opacity">{{navInfo.tissueIntroduction}}</div>
+    </nav>
+    <div id="content">
+        <div class="list" v-for="(item, index) in this.listInfo" :key="index">
+            <div class="img-box">
+                <img :src="item.user.avatar" alt="">
+            </div>
+            <div class="list-text">
+                <div class="list-top">
+                    <span>{{item.user.name}}</span>
+                    <img v-if='item.user.verifyStatus===2' src="./images/share/icon_会员@3x.png" alt="图像" style='height: 0.14rem;width:0.14rem; vertical-align:middle;' >
+                    <span style="background:#f6e573;color:#e70012;width:0.4rem;height:0.2rem;display:inline-block;text-align:center;line-height:0.22rem;border-radius:10px;font-size:0.12rem">{{item.levelName}}</span>
+                   
+                </div>
+                <div v-if='item.user.company||item.user.position' style="color:#787878;font-size: 0.1rem;margin-top: 0.05rem">
+                    {{item.user.company}} . {{item.user.position}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+            <p>
+                <img src="https://www.ishangmi.cn/static/images/logostrokewhite.png" alt="">
+                <span>爱钞票｜爱美人｜爱商蜜</span>
+            </p>
+            <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.glhr.smdroid">下载APP</a>
+        </footer>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            navInfo: {},
+            listInfo: '',
+            title: '',
+            desc: '',
+            imgUrl: null
+        },
+        created() {
+            axios.get('https://api.ishangmi.cn/tissues/detail?tissueId=' + getUrlParam('id')).then(response => {
+                this.navInfo = response.data.result; 
+                this.desc = this.navInfo.tissueIntroduction;
+                this.title = this.navInfo.tissueName;
+                this.imgUrl = this.navInfo.tissueCoverPhoto;
+                this.share();
+            })
+
+            axios.get('https://api.ishangmi.cn/tissues/personList?tissueId=' + getUrlParam('id')).then(response => {
+                this.listInfo = response.data.result[0].peopleList;  
+                // this.listInfo = response.data.result.list;  
+            })
+
+        },
+        methods: {
+            share: function () {
+                wechatShare({
+                    title: this.title,
+                    desc: this.desc,
+                    link: this.link,
+                    imgUrl: this.imgUrl
+                });
+            }
+        }
+    })
+</script>
+</body>
+
+</html>

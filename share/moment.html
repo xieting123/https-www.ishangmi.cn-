@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable =no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商蜜</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="dist/skin.css"/>
+    <meta itemprop="description" name="description" content="商蜜互动交友" >
+    <meta itemprop="name" content="商蜜互动交友">
+    <meta itemprop="image" content="https://www.ishangmi.cn/static/images/logostrokewhite.png">
+    <script src="js/jquery.3.3.1.min.js"></script>
+    <script src="js/rem.js"></script>
+    <script src="js/request.js"></script>
+    <script src="js/vue.2.4.2.min.js"></script>
+    <script src="dist/vue-photo-preview.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/wecaht.share.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            font-size: 0.16rem;
+            font-family: "MicrosoftYaHei";
+        }
+
+        header {
+            width: 3.75rem;
+            height: 0.48rem;
+            background: #ea101f;
+            color: #ffffff;
+            font-size: 0.18rem;
+            text-align: center;
+            line-height: 0.48rem;
+            position: fixed;
+            top: 0
+        }
+
+        #content {
+            width: 3.75rem;
+            position: absolute;
+            top: 0rem;
+            bottom: 0.5rem;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch
+        }
+
+        nav {
+            width: 3.75rem;
+            height: 0.62rem;
+            border-bottom: 0.01rem solid #eeeeee;
+            padding: 0 0.13rem;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        nav .img {
+            width: 0.48rem;
+            height: 0.48rem;
+            border-radius: 50%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        #nav-left {
+            display: flex;
+            align-items: center
+        }
+
+        #nav-content {
+            width: 3.75rem;
+            padding: 0.15rem 0.13rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        #nav-content p{
+            line-height: 0.27rem;
+        }
+
+        #img-box {
+            /* display: flex; */
+            margin-bottom: 0.08rem;
+            margin-top: 0.08rem;  
+            /* margin:0.08rem auto; */
+        }
+
+        #img-box div {
+            width: 1.12rem;
+            height: 1.1rem;
+            margin-right:0.06rem ;
+            overflow: hidden;
+            display: inline-block;
+            box-sizing: border-box;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+        #img-box div:nth-child(3n+3){
+            margin-right:0;
+        }
+.img-box2{
+    position: relative;
+    /* width:33.3%; */
+
+}
+.img-box2 img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+}
+
+        #text-mount {
+            width: 3.49rem;
+            margin: 0 auto;
+            height: 0.36rem;
+            border-bottom: 0.01rem solid #eeeeee;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            color: #787878;
+           
+        }
+      
+
+        .listInfo {
+            width: 3.49rem;
+            display: flex;
+            margin: 0 auto;
+            justify-content: space-between;
+            padding-top:0.02rem;
+        }
+
+        .listInfo-text {
+            width: 3.1rem;
+            border-bottom: 0.01rem solid #eeeeee;
+            display: flex;
+            flex-direction: column;
+            /* justify-content: space-around; */
+            word-wrap: break-word
+        }
+
+        .listInfo-bottom {
+            margin-bottom: 0.06rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #686868;
+        }
+
+        .p-text {
+            display: flex;
+            align-items: center
+        }
+     
+
+        #foot {
+            width: 3.75rem;
+            text-align: center;
+            margin: 0.14rem 0;
+        }
+
+        
+footer {
+width: 3.75rem;
+padding: 0 0.13rem;
+box-sizing: border-box;
+position: fixed;
+bottom: 0;
+z-index: 68;
+background: rgba(255, 255, 255, 1);
+box-shadow: 0px -1px 6px rgba(0, 0, 0, 0.16);
+height: 0.5rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+color: #ffffff;
+font-size: 0.14rem;
+}
+li{
+list-style: none;
+}
+footer img {
+width: 0.36rem;
+height: 0.36rem;
+margin-right: 0.1rem;
+}
+
+footer p {
+display: flex;
+align-items: center;
+font-size: 0.12rem;
+color: #4D4D4D;
+font-family: Segoe UI;
+}
+
+footer a {
+float: right;
+text-decoration: none;
+color: #ffffff;
+font-size: 0.14rem;
+background: rgba(215, 0, 15, 1);
+width: 0.7rem;
+height: 0.24rem;
+text-align: center;
+line-height: 0.24rem;
+/*margin-left: 1rem;*/
+border-radius: 37px;
+font-family: Segoe UI;
+}
+    </style>
+
+</head>
+
+<body>
+<div id="container">
+    <!-- <header>
+        商机详情
+    </header> -->
+    <div id="content">
+        <nav>
+            <div id="nav-left">
+                <div class="img" :style="{backgroundImage:'url('+info.user.avatar+')'}"></div>
+                <div id="user-name" style="margin-left:0.13rem;line-height: 0.2rem">
+                    <span v-if='info.user.userIdentity.identityId===4||info.user.userIdentity.identityId===3||info.user.userIdentity.identityId===6' >{{info.user.name?info.user.name:info.user.nickname}}</span>
+                   
+                    <span v-else>{{info.user.nickname}}</span>
+                    <img v-if='info.user.verifyStatus===2' src="./images/share/icon_会员@3x.png" alt="图像" style='height: 0.16rem;width:0.16rem; vertical-align:top;' >
+                    <p v-if="info.user.company||info.user.position" style="color:#7a7a7a;font-size:0.12rem;">{{info.user.company}}&#12288;{{info.user.position}}</p>
+                    <p v-else style="color:#7a7a7a;font-size:0.12rem;"></p>
+                </div>
+            </div>
+            <!--<span style="color:#7a7a7a;font-size:0.12rem;">{{time}}</span>-->
+            <span style="color:#7a7a7a;font-size:0.12rem;">{{info.readingNumber}}阅读</span>
+        </nav>
+        <div id="nav-content">
+            <p v-html="info.content"></p>
+            <div id="img-box"> 
+                <div class="img-box2" v-for="(item, index) in info.imageIdArr" :style="{'background-image': 'url(' + item + ')'}" :key="index">
+                    <img preview="repairDetail" preview-text="" :src="item" alt="">
+             </div>
+            </div>
+          
+            <div v-if="info.supplyInfo != '' " style="color:#fe6d4b"><span style="width:0.2rem;height:0.2rem;background:#fe6d4b;display:inline-block;color:#ffffff;text-align: center;line-height: 0.2rem;">供</span>
+                {{info.supplyInfo}}
+            </div>
+            <div v-if="info.demandInfo != '' " style="color:#ac8fef"><span style="width:0.2rem;height:0.2rem;background:#ac8fef;display:inline-block;color:#ffffff;text-align: center;line-height: 0.2rem;">需</span>
+                {{info.demandInfo}}
+            </div>
+        </div>
+        <div style="width:3.75rem;height:0.1rem;background:#eeeeee;"></div>
+        <div id="text-mount">
+            <img src="images/pinglun.png" alt="" style="width:0.18rem;height:0.15rem">
+            <span style="margin:0 0.06rem" class='comment'>评论</span>
+            <span class='num' style=' vertical-align:top'>{{info.commentCount}} 条</span>
+        </div>
+        <div class="listInfo" v-for="(item, index) in listInfo" :key="index">
+            <img :src="item.fromUser.avatar" alt="" style="width:0.3rem;height:0.3rem;border-radius:50%;margin-top: 0.04rem">
+            <div class="listInfo-text">
+                <p>{{item.fromUser.nickname}}</p>
+                <div style="color:#686868" v-if="item.toUid == 0">{{item.content}}</div>
+                <div style="color:#686868" v-else><span>回复</span> <span style="color:#387dcc">{{item.toUser.nickname}}</span> <span>{{item.content}}</span></div>
+                <div class="listInfo-bottom">
+                    <p><span style="color:#686868;font-size:0.12rem">{{item.time}}</span></p>
+                    <p class="p-text"><img src="images/pinglun.png" alt="" style="width:0.18rem;height:0.15rem"><span style="margin-left:0.04rem">回复</span></p>
+                </div>
+            </div>
+        </div>
+        <div id="foot">
+            没有更多数据
+        </div>
+    </div>
+    <footer>
+            <p>
+            <img src="https://www.ishangmi.cn/static/images/logostrokewhite.png" alt="">
+            <span>爱钞票｜爱美人｜爱商蜜</span>
+            </p>
+            <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.glhr.smdroid">下载APP</a>
+            </footer>
+</div>
+
+<script>
+    new Vue({
+        el: '#container',
+        data: {
+            info: {user:{companyPositionList:[]
+            ,
+            userIdentity:{identityId:''}}},
+            listInfo: '',
+            time: '',
+            title: '',
+            desc: '',
+            imgUrl: null
+        },
+        created() {
+            axios.get('https://api.ishangmi.cn/moments/momentsInfo?momentId=' + getUrlParam('id')).then(response => {
+                String.prototype.replaceAll = function(s1,s2){
+                    return this.replace(new RegExp(s1,"gm"),s2);
+                }
+                var content = response.data.result.content;
+                response.data.result.content = response.data.result.content.replaceAll("\n","<br>");
+                this.info = response.data.result;
+                this.time = this.dateDiff(this.info.createTime);
+              if(this.info.user.userIdentity.identityId===4||this.info.user.userIdentity.identityId===3||this.info.user.userIdentity.identityId===6 ){
+               
+                if(this.info.user.name){
+                    this.title = this.info.user.name;
+                }
+                else{
+                    this.title = this.info.user.nickname;   
+                }
+              }  else{
+                this.title = this.info.user.nickname;  
+              }  
+                
+                this.desc = content;
+                if (this.info.imageIdArr.length > 0) {
+                    this.imgUrl = this.info.imageIdArr[0];
+                }
+                this.share();
+
+            })
+            axios.get('https://api.ishangmi.cn/moments/getCommentInfoListLim?momentId=' + getUrlParam('id')).then(response => {
+                this.listInfo = response.data.result.list;
+                for (var i of this.listInfo) {
+                    this.$set(i, 'time', this.dateDiff(i.createTime));
+                }
+            })
+        },
+        methods: {
+            share: function () {
+                wechatShare({
+                    title: this.title,
+                    desc: this.desc,
+                    link: this.link,
+                    imgUrl: this.imgUrl
+                });
+            },
+
+            dateDiff: function (timestamp) {
+                var arrTimestamp = (timestamp + '').split('');
+                for (var start = 0; start < 13; start++) {
+                    if (!arrTimestamp[start]) {
+                        arrTimestamp[start] = '0';
+                    }
+                }
+                timestamp = arrTimestamp.join('') * 1;
+                var minute = 1000 * 60;
+                var hour = minute * 60;
+                var day = hour * 24;
+                var halfamonth = day * 15;
+                var month = day * 30;
+                var now = new Date().getTime();
+                var diffValue = now - timestamp;
+                if (diffValue < 0) {
+                    return '不久前';
+                }
+                var monthC = diffValue / month;
+                var weekC = diffValue / (7 * day);
+                var dayC = diffValue / day;
+                var hourC = diffValue / hour;
+                var minC = diffValue / minute;
+                var zero = function (value) {
+                    if (value < 10) {
+                        return '0' + value;
+                    }
+                    return value;
+                };
+                if (monthC > 12) {
+                    return (function () {
+                        var date = new Date(timestamp);
+                        return date.getFullYear() + '年' + zero(date.getMonth() + 1) + '月' + zero(date.getDate()) + '日';
+                    })();
+                } else if (monthC >= 1) {
+                    return parseInt(monthC) + "月前";
+                } else if (weekC >= 1) {
+                    return parseInt(weekC) + "周前";
+                } else if (dayC >= 1) {
+                    return parseInt(dayC) + "天前";
+                } else if (hourC >= 1) {
+                    return parseInt(hourC) + "小时前";
+                } else if (minC >= 1) {
+                    return parseInt(minC) + "分钟前";
+                }
+                return '刚刚';
+            }
+
+        }
+    })
+</script>
+		<script type="text/javascript">
+			var options={
+				fullscreenEl:false, //关闭全屏按钮
+			}
+			
+			Vue.use(vuePhotoPreview,options)
+			
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					img1:[]
+				},
+				mounted:function(){
+					//异步插入的图片
+					setTimeout(() => {
+						vm.img1.push('1.jpg')
+						vm.$previewRefresh()
+					}, 2000);
+
+					//图片查看器打开后，打印本次查看器的实例（事件、方法、属性的示例）
+					this.$preview.on('imageLoadComplete',(e,item)=>{
+						// console.log(this.$preview.self)
+					})
+				}
+			})
+		</script>
+</body>
+
+</html>

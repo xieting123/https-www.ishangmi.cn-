@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商蜜</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+
+    <meta itemprop="description" name="description" content="商蜜互动交友" >
+    <meta itemprop="name" content="商蜜互动交友">
+    <meta itemprop="image" content="https://www.ishangmi.cn/static/images/logostrokewhite.png">
+
+    <script src="js/jquery.3.3.1.min.js"></script>
+    <script src="js/rem.js"></script>
+    <script src="js/request.js"></script>
+    <script src="js/vue.2.4.2.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/jquery.3.3.1.min.js"></script>
+    <script src="js/wecaht.share.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            font-size: 0.16rem;
+            font-family: "MicrosoftYaHei";
+
+        }
+
+        header {
+            width: 3.75rem;
+            height: 0.48rem;
+            background: #ea101f;
+            color: #ffffff;
+            font-size: 0.18rem;
+            text-align: center;
+            line-height: 0.48rem;
+            position: fixed;
+            top: 0
+        }
+
+        
+footer {
+width: 3.75rem;
+padding: 0 0.13rem;
+box-sizing: border-box;
+position: fixed;
+bottom: 0;
+z-index: 68;
+background: rgba(255, 255, 255, 1);
+box-shadow: 0px -1px 6px rgba(0, 0, 0, 0.16);
+height: 0.5rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+color: #ffffff;
+font-size: 0.14rem;
+}
+li{
+list-style: none;
+}
+footer img {
+width: 0.36rem;
+height: 0.36rem;
+margin-right: 0.1rem;
+}
+
+footer p {
+display: flex;
+align-items: center;
+font-size: 0.12rem;
+color: #4D4D4D;
+font-family: Segoe UI;
+}
+
+footer a {
+float: right;
+text-decoration: none;
+color: #ffffff;
+font-size: 0.14rem;
+background: rgba(215, 0, 15, 1);
+width: 0.7rem;
+height: 0.24rem;
+text-align: center;
+line-height: 0.24rem;
+/*margin-left: 1rem;*/
+border-radius: 37px;
+font-family: Segoe UI;
+}
+
+        #content {
+            width: 3.75rem;
+            position: absolute;
+            top: 0rem;
+            bottom: 0.5rem;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            background: #f0f2f5
+        }
+        #content h2{
+            font-size: 1.6em;
+            line-height: 0.34rem;
+            width: 3.75rem;
+            background: #ffffff;
+            padding: 0.08rem 0.13rem;
+            box-sizing: border-box;
+            word-wrap: break-word;
+        }
+        nav {
+            width: 3.75rem;
+            background: #ffffff;
+            padding: 0.08rem 0.13rem;
+            box-sizing: border-box;
+            word-wrap: break-word;
+            line-height: 0.21rem;
+            font-size: 0.16rem;
+
+        }
+
+        #author {
+            width: 3.75rem;
+            
+            background: #ffffff;
+            height: 0.28rem;
+            font-size: 0.12rem;
+            color: #707070
+        }
+
+        #box {
+            width: 3.75rem;
+            height: 0.6rem;
+            background: #ffffff;
+        }
+
+        #user-info {
+            width: 3.49rem;
+            height: 0.6rem;
+            border-bottom: 0.01rem solid #ececec;
+            box-sizing: border-box;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        #left .img {
+            width: 0.4rem;
+            height: 0.4rem;
+            border-radius: 50%;
+            margin-right: 0.1rem;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        #left {
+            display: flex;
+        }
+
+        .img-text {
+            display: inline-block;
+            width: 0.18rem;
+            height: 0.18rem;
+            background: #ac8fef;
+            display: inline-block;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            line-height: 0.18rem;
+            margin-left: 0.02rem;
+            font-size: 0.12rem;
+        }
+
+        #right-top {
+            width: 0.6rem;
+            height: 0.26rem;
+            background: #e70012;
+            color: #ffffff;
+            border-radius: 0.04rem;
+            text-align: center;
+            line-height: 0.26rem;
+        }
+
+        section {
+            width: 3.75rem;
+            background: #ffffff;
+            margin-bottom: 0.08rem;
+        }
+
+        article {
+            width: 3.49rem;
+            margin: 0 auto;
+            padding-top: 0.1rem;
+            padding-bottom: 0.2rem;
+            box-sizing: border-box;
+        }
+
+        article p{
+            margin-top: 0.15rem;
+        }
+
+        article img {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        #comment {
+            width: 3.75rem;
+            padding: 0 0.13rem;
+            box-sizing: border-box;
+            background: #ffffff;
+        }
+
+        #comment-top {
+            width: 3.49rem;
+            height: 0.36rem;
+            border-bottom: 0.01rem solid #ececec;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+        }
+
+        .listInfo {
+            width: 3.49rem;
+            display: flex;
+            margin: 0 auto;
+            justify-content: space-between;
+            background: #ffffff;
+            padding-top: 0.06rem;
+        }
+        .listInfo .img{
+            width:0.3rem;
+            height:0.3rem;
+            border-radius:50%;
+            margin-top: 0.04rem;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        .listInfo-text {
+            width: 3.1rem;
+            border-bottom: 0.01rem solid #eeeeee;
+            display: flex;
+            flex-direction: column;
+            word-wrap: break-word
+        }
+
+        .listInfo-bottom {
+            margin-bottom: 0.06rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #686868;
+        }
+
+        .p-text {
+            display: flex;
+            align-items: center
+        }
+
+        #list-info {
+            width: 3.75rem;
+            background: #ffffff;
+        }
+
+        #foot {
+            width: 3.75rem;
+            height: 0.4rem;
+            text-align: center;
+            background: #ffffff;
+            line-height: 0.4rem
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--<header>
+            商道详情
+        </header>-->
+        <div id="content">
+            <h2>
+                {{info.newsTitle}}
+            </h2>
+            <div id="author" v-if="info.isOriginal == 0">
+                <span style="margin-left: 0.13rem;margin-right:0.04rem">{{info.originalAuthor}}</span> <span>{{info.originalSource}}</span>
+            </div>
+            <div id="box">
+                <div id="user-info">
+                    <div id="left">
+                        <!-- <img :src="info.trUser.avatar" alt=""> -->
+                        <div class="img" :style="{backgroundImage:'url('+info.trUser.avatar+')'}"></div>
+                        <div id="left-text">
+                            <div id="text-top">
+                                <span>{{info.trUser.name}}</span>
+                                <img v-if='info.trUser.verifyStatus===2' src="./images/share/icon_会员@3x.png" alt="图像" style='height: 0.16rem;width:0.16rem; vertical-align:middle;' >
+                                <span v-if="info.isOriginal == 0" class="img-text">转</span>
+                                <span v-else class="img-text">原</span>
+                                <div v-if="info.trUser.company||info.trUser.position" style="margin-top:0.06rem;font-size:0.12rem">{{info.trUser.company}}&#12288;{{info.trUser.position}}</div>
+                                <div v-else style="margin-top:0.06rem;font-size:0.12rem"></div>
+                            </div>
+                            <!--<div id="text-bottom" style="color:#707070;font-size:0.12rem">
+                                {{time}}
+                            </div>-->
+                        </div>
+                    </div>
+                    <div id="right">
+                        <!--<div id="right-top">关注</div>-->
+                        <div id="right-bottom" style="text-align:right;color: #707070;;font-size:0.12rem">{{info.readCount}}阅读</div>
+                    </div>
+                </div>
+            </div>
+            <section>
+                <article v-html="info.newsContent"></article>
+            </section>
+            <div id="comment">
+                <div id="comment-top">
+                    <img src="images/pinglun.png" alt="" style="width:0.18rem;height:0.15rem">
+                    <span style="margin:0 0.06rem">评论</span>
+                    <span v-if="info.commentCount <= 10">{{info.commentCount}}条</span>
+                    <span v-else>10条</span>
+                </div>
+            </div>
+            <div id="list-info">
+                <div class="listInfo" v-for="(item, index) in listInfo" :key="index">
+                <div class="img" :style="{backgroundImage:'url('+item.fromUser.avatar+')'}"></div>
+                    <!-- <img :src="item.fromUser.avatar" alt="" style="width:0.3rem;height:0.3rem;border-radius:50%;margin-top: 0.04rem"> -->
+                    <div class="listInfo-text">
+                        <p>{{item.fromUser.nickname}}</p>
+                        <div style="color:#686868;margin: 0.06rem 0;" v-if="item.toUid == -1">{{item.newsCommentContent}}</div>
+                        <div style="color:#686868;margin: 0.06rem 0" v-else>
+                            <span>回复</span>
+                            <span style="color:#387dcc">{{item.toUser.nickname}}</span>
+                            <span>{{item.newsCommentContent}}</span>
+                        </div>
+                        <div class="listInfo-bottom">
+                            <p>
+                                <span style="color:#686868;font-size:0.12rem">{{item.time}}</span>
+                            </p>
+                            <p class="p-text">
+                                <img src="images/pinglun.png" alt="" style="width:0.18rem;height:0.15rem">
+                                <span style="margin-left:0.04rem">回复</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="foot">
+                没有更多数据
+            </div>
+        </div>
+        <footer>
+                <p>
+                <img src="https://www.ishangmi.cn/static/images/logostrokewhite.png" alt="">
+                <span>爱钞票｜爱美人｜爱商蜜</span>
+                </p>
+                <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.glhr.smdroid">下载APP</a>
+                </footer>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            info: {trUser:{companyPositionList:[]}},
+            time: '',
+            listInfo: '',
+            title: '',
+            desc: '',
+            imgUrl: null
+        },
+        created() {
+            axios.get('https://api.ishangmi.cn/avenues/detail?newsId=' + getUrlParam('id')).then(response => {
+                this.info = response.data.result;
+                this.time = this.myTimeToLocal(this.info.createTime);
+                this.desc = this.info.newsTitle;
+                this.title = this.info.newsTitle;
+                this.imgUrl = this.info.trUser.avatar;
+                this.share();
+            })
+            axios.post('https://api.ishangmi.cn/avenues/commentList?newsId=' + getUrlParam('id')).then(
+                response => {
+                    this.listInfo = response.data.result.list.slice(0, 10)
+                    for (var i of this.listInfo) {
+                        this.$set(i, 'time', this.dateDiff(i.createTime))
+                    }
+                })
+
+        },
+        methods: {
+            share: function () {
+                wechatShare({
+                    title: this.title,
+                    desc: this.desc,
+                    link: this.link,
+                    imgUrl: this.imgUrl
+                });
+            },
+            myTimeToLocal(inputTime) {
+                if (!inputTime && typeof inputTime !== 'number') {
+                    return '';
+                }
+                var localTime = '';
+                inputTime = new Date(inputTime).getTime();
+                const offset = (new Date()).getTimezoneOffset();
+                localTime = (new Date(inputTime - offset * 60000)).toISOString();
+                localTime = localTime.substr(0, localTime.lastIndexOf('.'));
+                localTime = localTime.replace('T', ' ');
+                return localTime;
+            },
+            dateDiff: function (timestamp) {
+                var arrTimestamp = (timestamp + '').split('');
+                for (var start = 0; start < 13; start++) {
+                    if (!arrTimestamp[start]) {
+                        arrTimestamp[start] = '0';
+                    }
+                }
+                timestamp = arrTimestamp.join('') * 1;
+                var minute = 1000 * 60;
+                var hour = minute * 60;
+                var day = hour * 24;
+                var halfamonth = day * 15;
+                var month = day * 30;
+                var now = new Date().getTime();
+                var diffValue = now - timestamp;
+                if (diffValue < 0) {
+                    return '不久前';
+                }
+                var monthC = diffValue / month;
+                var weekC = diffValue / (7 * day);
+                var dayC = diffValue / day;
+                var hourC = diffValue / hour;
+                var minC = diffValue / minute;
+                var zero = function (value) {
+                    if (value < 10) {
+                        return '0' + value;
+                    }
+                    return value;
+                };
+                if (monthC > 12) {
+                    return (function () {
+                        var date = new Date(timestamp);
+                        return date.getFullYear() + '年' + zero(date.getMonth() + 1) + '月' +
+                            zero(date.getDate()) + '日';
+                    })();
+                } else if (monthC >= 1) {
+                    return parseInt(monthC) + "月前";
+                } else if (weekC >= 1) {
+                    return parseInt(weekC) + "周前";
+                } else if (dayC >= 1) {
+                    return parseInt(dayC) + "天前";
+                } else if (hourC >= 1) {
+                    return parseInt(hourC) + "小时前";
+                } else if (minC >= 1) {
+                    return parseInt(minC) + "分钟前";
+                }
+                return '刚刚';
+            }
+        }
+    })
+</script>
+
+</html>

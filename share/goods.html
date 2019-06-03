@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商蜜</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+
+    <meta itemprop="description" name="description" content="商蜜互动交友" >
+    <meta itemprop="name" content="商蜜互动交友">
+    <meta itemprop="image" content="https://www.ishangmi.cn/static/images/logostrokewhite.png">
+
+    <script src="js/jquery.3.3.1.min.js"></script>
+    <script src="js/rem.js"></script>
+    <script src="js/request.js"></script>
+    <script src="js/vue.2.4.2.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/wecaht.share.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            font-size: 0.16rem;
+            font-family: "MicrosoftYaHei";
+
+        }
+
+        header {
+            width: 3.75rem;
+            height: 0.48rem;
+            background: #ea101f;
+            color: #ffffff;
+            font-size: 0.18rem;
+            text-align: center;
+            line-height: 0.48rem;
+            position: fixed;
+            top: 0
+        }
+
+        #content {
+            width: 3.75rem;
+            position: absolute;
+            top: 0rem;
+            bottom: 0.5rem;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            background: #f0f2f5
+        }
+        #content .img{
+            height: 2.76rem;
+            width:3.75rem;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        #nav {
+            width: 3.75rem;
+            background: #ffffff;
+            padding: 0 0.13rem;
+            padding-top: 0.1rem;
+            box-sizing: border-box;
+            margin-bottom: 0.1rem;
+        }
+
+        .nav-bottom-text {
+            height: 0.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.14rem;
+            color: #787878
+        }
+
+        #comment-list {
+            width: 3.75rem;
+            height: 0.4rem;
+            padding: 0 0.13rem;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+        }
+   
+
+        .seller {
+            width: 3.75rem;
+            height: 0.4rem;
+            text-indent: 0.13rem;
+            font-size: 0.15rem;
+            line-height: 0.4rem;
+        }
+
+        #user-info {
+            width: 3.49rem;
+            margin: 0 auto;
+            background: #ffffff;
+            height: 0.86rem;
+            border-radius: 0.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        #user-info .img {
+            width: 0.62rem;
+            height: 0.62rem;
+            border-radius: 50%;
+            margin-left: 0.2rem;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        #user-infoText {
+            margin-left: 0.2rem;
+
+        }
+
+        #foot {
+            width: 3.75rem;
+            background: #ffffff;
+            margin-bottom: 0.28rem;
+        }
+
+        #footer-content {
+            width: 3.49rem;
+            margin: 0 auto;
+        }
+
+        #footer-content p{
+            margin-top: 0.15rem !important;
+        }
+
+        #footer-content img {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        .p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+footer {
+width: 3.75rem;
+padding: 0 0.13rem;
+box-sizing: border-box;
+position: fixed;
+bottom: 0;
+z-index: 68;
+background: rgba(255, 255, 255, 1);
+box-shadow: 0px -1px 6px rgba(0, 0, 0, 0.16);
+height: 0.5rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+color: #ffffff;
+font-size: 0.14rem;
+}
+li{
+list-style: none;
+}
+footer img {
+width: 0.36rem;
+height: 0.36rem;
+margin-right: 0.1rem;
+}
+
+footer p {
+display: flex;
+align-items: center;
+font-size: 0.12rem;
+color: #4D4D4D;
+font-family: Segoe UI;
+}
+
+footer a {
+float: right;
+text-decoration: none;
+color: #ffffff;
+font-size: 0.14rem;
+background: rgba(215, 0, 15, 1);
+width: 0.7rem;
+height: 0.24rem;
+text-align: center;
+line-height: 0.24rem;
+/*margin-left: 1rem;*/
+border-radius: 37px;
+font-family: Segoe UI;
+}
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--<header>
+            商品详情
+        </header>-->
+        <div id="content">
+            <!-- <img :src="nfoi.goodsCover" alt="" style="width:3.75rem"> -->
+            <div class="img" :style="{backgroundImage:'url('+nfoi.goodsCover+')'}"></div>
+            <div id="nav">
+                <div id="nav-top">
+                    {{nfoi.goodsName}}
+                </div>
+                <div id="nav-bottom">
+                    <div class="nav-bottom-text">
+                        <p style="font-size: 0.18rem;color: #ea101f;font-weight: bold;">￥{{nfoi.sellingPrice}}</p>
+                        <p><span style="margin-right:0.16rem">{{nfoi.salesValume}}人购买</span><span>运费￥{{nfoi.goodsFreight}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div id="comment-list">
+                <p>商品评价</p>
+                <p style="color:#787878;margin-right:0.08rem;" class="p">{{nfoi.commentCount}}条<span style="margin-left:0.03rem;">评价</span><img
+                        src="images/youfang.png" alt="" style="width:0.1rem;height:0.18rem;margin-left:0.12rem"></p>
+            </div>
+            <div class="seller">
+                发布者
+            </div>
+            <div id="user-info">
+                <!-- <img :src="nfoi.user.avatar" alt=""> -->
+                <div class="img" :style="{backgroundImage:'url('+nfoi.user.avatar+')'}"></div>
+                <div id="user-infoText">
+                    <span>{{nfoi.user.nickname}}</span>
+                    <img v-if='nfoi.user.verifyStatus===2' src='./images/share/icon_会员@3x.png' style='height: 0.14rem;width:0.14rem; vertical-align:middle;' >
+                    <p v-if="nfoi.user.company||nfoi.user.position" style="margin-top:0.08rem;font-size:0.12rem;color:#787878">{{nfoi.user.company}}&#12288;{{nfoi.user.position}}</p>
+                    <p v-else style="margin-top:0.08rem;font-size:0.12rem;color:#787878"></p>
+                </div>
+            </div>
+            <div class="seller">
+                商品详情
+            </div>
+            <div id="foot">
+                <div id="footer-content" v-html="nfoi.goodsDetail">
+            </div>
+        </div>
+        </div>
+        <footer>
+                <p>
+                    <img src="https://www.ishangmi.cn/static/images/logostrokewhite.png" alt="">
+                    <span>爱钞票｜爱美人｜爱商蜜</span>
+                </p>
+                <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.glhr.smdroid">下载APP</a>
+            </footer>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            nfoi: '',
+            title: '',
+            desc: '',
+            imgUrl: null
+        },
+        created() {
+            axios.get('https://api.ishangmi.cn/goods/getGoodsInfo?goodsId=' + getUrlParam('id')).then(response => {
+                this.nfoi = response.data.result;
+            this.title = this.nfoi.goodsName;
+            this.desc = this.nfoi.goodsName;
+            this.imgUrl = this.nfoi.goodsCover;
+            this.avatar=this.nfoi.user.avatar;
+            this.share();
+        })
+        },
+        methods: {
+            share: function () {
+                wechatShare({
+                    title: this.title,
+                    desc: this.desc,
+                    link: this.link,
+                    imgUrl: this.imgUrl
+                });
+            }
+        }
+    })
+</script>
+</html>
